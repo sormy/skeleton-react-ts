@@ -1,0 +1,35 @@
+{
+  "devDependencies": {
+    "css-loader": "^0.24.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "less-plugin-autoprefix": "^1.5.1",
+    "rimraf": "^2.5.4",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.3",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "serve": "webpack-dev-server",
+    "build": "webpack -d",
+    "build:prod": "webpack -p",
+    "postinstall": "typings install"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
+    "font-awesome": "^4.6.3",
+    "jquery": "^3.1.0",
+    "lodash": "^4.15.0",
+    "moment": "^2.14.1",
+    "open-sans-fontface": "^1.4.0",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  }
+}
