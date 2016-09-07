@@ -49,15 +49,12 @@ var config = {
       new LessPluginAutoPrefix({ browsers: '> 0%' })
     ]
   },
-  /*
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM'
   },
-  */
   devServer: {
     port: 9000,
-    hot: true,
     inline: true
   }
 };
