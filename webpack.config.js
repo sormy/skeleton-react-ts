@@ -8,6 +8,10 @@ var isDevServer = path.basename(process.argv[1]) == 'webpack-dev-server';
 var isProd = path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-p';
 var isDev = isDevServer || !isProd;
 
+var lessLoader = isProd
+  ? ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap'])
+  : ['style', 'css?sourceMap', 'less?sourceMap'].join('!');
+
 var config = {
   entry: [
     './src/index.tsx'
@@ -33,7 +37,7 @@ var config = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap'])
+        loader: lessLoader
       },
       {
         test: /\/fonts\/.*\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
@@ -42,7 +46,6 @@ var config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('app.css')
   ],
   lessLoader: {
     lessPlugins: [
@@ -58,5 +61,9 @@ var config = {
     inline: true
   }
 };
+
+if (isProd) {
+  config.plugins.push(new ExtractTextPlugin('[name].css'));
+}
 
 module.exports = config;
