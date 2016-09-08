@@ -1,13 +1,8 @@
-import './bootstrap/bootstrap.less';
-import 'font-awesome/less/font-awesome.less';
-import 'open-sans-fontface/open-sans.less';
+import './styles';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { Hello } from './Hello';
+import { App } from './App';
 
-ReactDOM.render(
-  <Hello compiler="TypeScript" framework="React" />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

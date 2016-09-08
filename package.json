@@ -6,6 +6,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "less-plugin-autoprefix": "^1.5.1",
+    "react-hot-loader": "^3.0.0-beta.3",
     "rimraf": "^2.5.4",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
@@ -18,9 +19,10 @@
   "scripts": {
     "clean": "rimraf dist",
     "serve": "webpack-dev-server",
-    "build": "webpack -d",
-    "build:prod": "webpack -p",
-    "postinstall": "typings install"
+    "build": "npm run clean && webpack -d",
+    "build:prod": "npm run clean && webpack -p",
+    "postinstall": "typings install",
+    "start": "npm run serve"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",

@@ -8,32 +8,34 @@ var isDevServer = path.basename(process.argv[1]) == 'webpack-dev-server';
 var isProd = path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-p';
 var isDev = isDevServer || !isProd;
 
-var lessLoader = isProd
-  ? ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap'])
-  : ['style', 'css?sourceMap', 'less?sourceMap'].join('!');
+var lessLoader = isDevServer
+  ? ['style', 'css?sourceMap', 'less?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap']);
+
+var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
 
 var config = {
   entry: [
-    './src/index.tsx'
+    './src/index'
   ],
   output: {
-    path: 'dist',
-    filename: 'app.js',
-    publicPath: '/dist/'
+    path: path.resolve('dist'),
+    filename: 'app.js'
   },
-  devtool: 'source-map',
+  devtool: isDevServer ? 'eval' : 'source-map',
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx']
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'source-map'
+        loader: 'source-map-loader'
       },
       {
-        test: /\.tsx?$/,
-        loader: 'ts'
+        test: /\.(tsx?|jsx?)$/,
+        loaders: tsLoader,
+        include: path.resolve('src')
       },
       {
         test: /\.less$/,
@@ -55,15 +57,31 @@ var config = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM'
-  },
-  devServer: {
-    port: 9000,
-    inline: true
   }
 };
 
-if (isProd) {
-  config.plugins.push(new ExtractTextPlugin('[name].css'));
+if (!isDevServer) {
+  config.plugins.push(new ExtractTextPlugin('app.css'));
+}
+
+if (isDevServer) {
+  config.output.publicPath = '/dist/';
+
+  config.devServer = {
+    port: 9000,
+    hot: true,
+    historyApiFallback: true,
+    publicPath: config.output.publicPath
+  };
+
+  config.entry = [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:' + config.devServer.port,
+    'webpack/hot/only-dev-server',
+    './src/index-hot'
+  ];
+
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = config;
