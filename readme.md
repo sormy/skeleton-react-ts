@@ -4,14 +4,15 @@
 
 - React
 - TypeScript
-- WebPack
+- WebPack v1.x
 - LESS
-- Bootstrap
-- LESS Hot Reload
-- React Hot Reload
+- Bootstrap 3.x
+- Styles Hot Loader
+- React Hot Loader v3.x
 - E2E testing...
 - Unit testing...
-- eslint
+- Test runner...
+- tslint
 - markdownlint
 - stylelint
 - BrowserSync
