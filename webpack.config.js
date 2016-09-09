@@ -26,10 +26,15 @@ var config = {
   },
   devtool: isDevServer ? 'eval' : 'source-map',
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.tsx']
   },
   module: {
     preLoaders: [
+      {
+        test: /\.tsx?$/,
+        loader: 'tslint',
+        include: path.resolve('src')
+      },
       {
         test: /\.js$/,
         loader: 'source-map-loader'
@@ -37,7 +42,7 @@ var config = {
     ],
     loaders: [
       {
-        test: /\.(tsx?|jsx?)$/,
+        test: /\.tsx?$/,
         loaders: tsLoader,
         include: path.resolve('src')
       },
@@ -58,6 +63,10 @@ var config = {
     }),
     new BellOnBundlerErrorPlugin()
   ],
+  tslint: {
+    emitErrors: true,
+    failOnHint: true
+  },
   lessLoader: {
     lessPlugins: [
       new LessPluginAutoPrefix({ browsers: '> 0%' })

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Hello } from './Hello';
 import { Counter } from './Counter';
+import { Hello } from './Hello';
 
 export class App extends React.Component<void, void> {
-  render() {
+  public render() {
     return (
       <div style={{ margin: '20px' }}>
         <Hello compiler="TypeScript" framework="React" />
