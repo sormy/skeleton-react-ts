@@ -1,8 +1,10 @@
 {
   "devDependencies": {
+    "bell-on-bundler-error-plugin": "^1.0.8",
     "css-loader": "^0.24.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "less-plugin-autoprefix": "^1.5.1",
@@ -18,11 +20,10 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "serve": "webpack-dev-server",
-    "build": "npm run clean && webpack -d",
-    "build:prod": "npm run clean && webpack -p",
+    "build": "rimraf dist && webpack -d",
+    "build:prod": "rimraf dist && webpack -p",
     "postinstall": "typings install",
-    "start": "npm run serve"
+    "start": "webpack-dev-server"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",

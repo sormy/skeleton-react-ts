@@ -3,6 +3,8 @@ var webpack = require('webpack');
 
 var LessPluginAutoPrefix = require('less-plugin-autoprefix');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin')
 
 var isDevServer = path.basename(process.argv[1]) == 'webpack-dev-server';
 var isProd = path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-p';
@@ -27,11 +29,13 @@ var config = {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx']
   },
   module: {
-    loaders: [
+    preLoaders: [
       {
         test: /\.js$/,
         loader: 'source-map-loader'
-      },
+      }
+    ],
+    loaders: [
       {
         test: /\.(tsx?|jsx?)$/,
         loaders: tsLoader,
@@ -48,6 +52,11 @@ var config = {
     ]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html'
+    }),
+    new BellOnBundlerErrorPlugin()
   ],
   lessLoader: {
     lessPlugins: [
