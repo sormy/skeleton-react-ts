@@ -62,11 +62,15 @@ var config = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(isProd ? 'production' : 'development')
+      }
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      '__extends': 'tslib/__extends'
+      'window.jQuery': 'jquery'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
