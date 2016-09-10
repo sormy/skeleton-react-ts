@@ -17,6 +17,8 @@ var lessLoader = isDevServer
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
 
+var bootstrapConfig = require('bootstrap/grunt/configBridge.json');
+
 var config = {
   entry: {
     vendor: ['jquery', 'bootstrap', 'react', 'react-dom', 'moment', 'lodash'],
@@ -78,7 +80,9 @@ var config = {
   },
   lessLoader: {
     lessPlugins: [
-      new LessPluginAutoPrefix({ browsers: '> 0%' })
+      new LessPluginAutoPrefix({
+        browsers: bootstrapConfig.config.autoprefixerBrowsers
+      })
     ]
   }
 };
