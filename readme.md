@@ -5,17 +5,18 @@
 - React
 - TypeScript
 - WebPack v1.x
+- BrowserSync
 - LESS
 - Bootstrap 3.x
 - Styles Hot Loader
 - React Hot Loader v3.x
+- Source Maps
 - E2E testing...
 - Unit testing...
 - Test runner...
 - tslint
 - markdownlint
 - stylelint
-- BrowserSync
 
 ## Tasks ##
 
