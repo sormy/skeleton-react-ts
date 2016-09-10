@@ -41,8 +41,7 @@ var config = {
       },
       {
         test: /\.js$/,
-        loader: 'source-map-loader',
-        noParse: /^tslib$/
+        loader: 'source-map-loader'
       }
     ],
     loaders: [
