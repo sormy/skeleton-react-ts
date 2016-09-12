@@ -11,6 +11,7 @@
     "less-plugin-autoprefix": "^1.5.1",
     "react-hot-loader": "^3.0.0-beta.3",
     "rimraf": "^2.5.4",
+    "semantic-ui": "^2.2.4",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
@@ -27,7 +28,7 @@
     "clean": "rimraf dist",
     "build": "rimraf dist && webpack -d",
     "build:prod": "rimraf dist && webpack -p",
-    "postinstall": "typings install",
+    "postinstall": "typings install && node semantic-fix.js",
     "start": "node server.js"
   },
   "dependencies": {

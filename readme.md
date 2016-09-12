@@ -18,6 +18,12 @@
 - markdownlint
 - stylelint
 
+- semantic ui
+- foundation
+- split vendor and app css
+- tslib
+- one index.tsx
+
 ## Tasks ##
 
 1. Clean Build: `npm run clean`

@@ -55,8 +55,8 @@ var config = {
         loader: lessLoader
       },
       {
-        test: /\/fonts\/.*\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
-        loader: 'file?name=fonts/[name].[ext]?[hash]'
+        test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
+        loader: 'file?name=[path]/[name].[ext]?[hash]'
       }
     ]
   },
