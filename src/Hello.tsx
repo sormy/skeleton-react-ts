@@ -10,9 +10,16 @@ export class Hello extends React.Component<IHelloProps, void> {
     return (
       <div>
         <h1>Hello from {this.props.compiler} and {this.props.framework}</h1>
-        <button type="button" className="btn btn-primary">
-          This button should be red if bootstrap overrides are working well
-        </button>
+        <div style={{ margin: '10px' }}>
+          <button className="btn btn-primary">
+            This button should be red if Bootstrap overrides are working well
+          </button>
+        </div>
+        <div style={{ margin: '10px' }}>
+          <button className="ui button">
+            This button should be red if Semantic UI overrides are working well
+          </button>
+        </div>
       </div>
     );
   }

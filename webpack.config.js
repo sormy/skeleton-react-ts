@@ -17,11 +17,13 @@ var lessLoader = isDevServer
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
 
-var bootstrapConfig = require('bootstrap/grunt/configBridge.json');
+// var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
+var autoprefixerBrowsers = require('semantic-ui/tasks/config/tasks').settings.prefix.browsers;
 
 var config = {
   entry: {
-    vendor: ['jquery', 'bootstrap', 'react', 'react-dom', 'moment', 'lodash'],
+    //vendor: ['jquery', 'bootstrap', 'react', 'react-dom', 'moment', 'lodash'],
+    vendor: ['jquery', 'semantic-ui', 'react', 'react-dom', 'moment', 'lodash'],
     app: './src/index',
   },
   output: {
@@ -83,9 +85,7 @@ var config = {
   },
   lessLoader: {
     lessPlugins: [
-      new LessPluginAutoPrefix({
-        browsers: bootstrapConfig.config.autoprefixerBrowsers
-      })
+      new LessPluginAutoPrefix({ browsers: autoprefixerBrowsers })
     ]
   }
 };
@@ -93,7 +93,8 @@ var config = {
 if (!isDevServer) {
   config.plugins.push(
     new ExtractTextPlugin('[name].css', { allChunks: true }),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.OccurenceOrderPlugin()
   );
 } else {
   config.entry = [
@@ -111,7 +112,6 @@ if (!isDevServer) {
   };
 
   config.plugins.push(
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   );
