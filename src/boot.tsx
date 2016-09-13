@@ -1,3 +1,5 @@
+import 'tslib';
+
 // import './bootstrap/bootstrap.less';
 // import 'bootstrap/dist/js/bootstrap';
 

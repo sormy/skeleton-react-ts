@@ -4,24 +4,23 @@
 
 - React
 - TypeScript
-- WebPack v1.x
+- WebPack
 - BrowserSync
 - LESS
 - Bootstrap 3.x
-- Styles Hot Loader
-- React Hot Loader v3.x
+- Hot Reload (CSS, LESS, JS, TS, React)
 - Source Maps
+- tslint
+- tslib
+- semantic ui
+
 - E2E testing...
 - Unit testing...
 - Test runner...
-- tslint
 - markdownlint
 - stylelint
-
-- semantic ui
 - foundation
 - split vendor and app css
-- tslib
 - one index.tsx
 
 ## Tasks ##
