@@ -22,9 +22,9 @@ var autoprefixerBrowsers = require('semantic-ui/tasks/config/tasks').settings.pr
 
 var config = {
   entry: {
-    //vendor: ['jquery', 'bootstrap', 'react', 'react-dom', 'moment', 'lodash'],
-    vendor: ['jquery', 'semantic-ui', 'react', 'react-dom', 'moment', 'lodash'],
     app: './src/index',
+    vendor: ['jquery', 'semantic-ui/dist/semantic', 'react', 'react-dom', 'moment', 'lodash']
+    // vendor: ['jquery', 'bootstrap/dist/js/bootstrap', 'react', 'react-dom', 'moment', 'lodash']
   },
   output: {
     path: path.resolve('dist'),
@@ -92,9 +92,9 @@ var config = {
 
 if (!isDevServer) {
   config.plugins.push(
-    new ExtractTextPlugin('[name].css', { allChunks: true }),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new ExtractTextPlugin('[name].css', { allChunks: true })
   );
 } else {
   config.entry = [
