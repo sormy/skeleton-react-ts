@@ -6,6 +6,7 @@ var LessPluginAutoPrefix = require('less-plugin-autoprefix');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
+var SourceMapFixPlugin = require('webpack-source-map-fix-plugin');
 
 var isDevServer = path.basename(process.argv[1]) === 'server.js';
 var isProd = path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-p';
@@ -77,6 +78,7 @@ var config = {
       filename: 'index.html',
       template: 'src/index.html'
     }),
+    new SourceMapFixPlugin(),
     new BellOnBundlerErrorPlugin()
   ],
   tslint: {
