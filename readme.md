@@ -13,6 +13,9 @@
 - tslint
 - tslib
 - semantic ui
+- split vendor and app css
+
+TODO:
 
 - E2E testing...
 - Unit testing...
@@ -20,8 +23,7 @@
 - markdownlint
 - stylelint
 - foundation
-- split vendor and app css
-- one index.tsx
+- merge index.tsx and index-hot.tsx
 
 ## Tasks ##
 
