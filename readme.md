@@ -48,17 +48,53 @@
 ## Semantic UI ##
 
 1. Auto patch Semantic UI in npm `postinstall` stage with `semantic-fix.js`.
-2. Install Semantic UI with `npm install --save semantic-ui`.
-3. Skip auto installation with CTRL + C.
-4. Create directory `src/semantic`, `src/semantic/site`.
-5. Copy `semantic-ui/src/semantic.less` into `src/semantic/semantic.less`
-   and replace all imports to begin with `@import "~semantic-ui/src/...";`.
-6. Copy `semantic-ui/src/theme.config.example` into `src/semantic/theme.config`
-   and set `@siteFolder   : '../../../src/semantic/site';`
-   and fix theme import as `@import "~semantic-ui/src/theme.less";`
+2. Install Semantic UI with `npm install --save semantic-ui-less`.
+3. Create directory `src/semantic`, `src/semantic/site`.
+4. Copy `semantic-ui-less/semantic.less` into `src/semantic/semantic.less`
+   and replace all imports to begin with `@import "~semantic-ui-less/...";`.
+5. Copy `semantic-ui-less/theme.config.example` into `src/semantic/theme.config`
+   and set `@siteFolder   : '../../src/semantic/site';`
+   and fix theme import as `@import "~semantic-ui-less/theme.less";`
+6. Create `src/semantic/semantic.js` and include all module you need in it
 7. Create `src/semantic/site/elements/button.variables` and override `@backgroundColor`
    to test if theme works well.
+8. Library suggested autoprefixer settings could be found in file
+   `semantic-ui/tasks/config/tasks` by path `settings.prefix.browsers`
+   Example: ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4']
+
+src/semantic/semantic.js:
+
+```javascript
+import 'semantic-ui-less/definitions/globals/site';
+
+import 'semantic-ui-less/definitions/behaviors/api';
+import 'semantic-ui-less/definitions/behaviors/colorize';
+import 'semantic-ui-less/definitions/behaviors/form';
+import 'semantic-ui-less/definitions/behaviors/state';
+import 'semantic-ui-less/definitions/behaviors/visibility';
+import 'semantic-ui-less/definitions/behaviors/visit';
+
+import 'semantic-ui-less/definitions/modules/accordion';
+import 'semantic-ui-less/definitions/modules/checkbox';
+import 'semantic-ui-less/definitions/modules/dimmer';
+import 'semantic-ui-less/definitions/modules/dropdown';
+import 'semantic-ui-less/definitions/modules/embed';
+import 'semantic-ui-less/definitions/modules/modal';
+import 'semantic-ui-less/definitions/modules/nag';
+import 'semantic-ui-less/definitions/modules/popup';
+import 'semantic-ui-less/definitions/modules/progress';
+import 'semantic-ui-less/definitions/modules/rating';
+import 'semantic-ui-less/definitions/modules/search';
+import 'semantic-ui-less/definitions/modules/shape';
+import 'semantic-ui-less/definitions/modules/sidebar';
+import 'semantic-ui-less/definitions/modules/sticky';
+import 'semantic-ui-less/definitions/modules/tab';
+import 'semantic-ui-less/definitions/modules/transition';
+// video module for some reason is included only in semantic-ui package
+// import 'semantic-ui-less/definitions/modules/video';
+```
 
 `src/semantic/semantic.less` could be used to remove components from library.
+`src/semantic/semantic.js` could be used to remove JS components from library.
 `src/semantic/theme.config` could be used to alter default theme per component.
 `src/semantic/site/**` could be used to alter theme for any component.

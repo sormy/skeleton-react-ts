@@ -19,22 +19,11 @@ var lessLoader = isDevServer
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
 
 // var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
-var autoprefixerBrowsers = require('semantic-ui/tasks/config/tasks').settings.prefix.browsers;
+var autoprefixerBrowsers = ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4'];
 
 var config = {
   entry: {
-    app: './src/index',
-    vendor: [
-      'jquery',
-      // 'bootstrap/dist/js/bootstrap',
-      'semantic-ui/dist/semantic',
-      'react',
-      'react-dom',
-      'moment',
-      'lodash',
-      'font-awesome/less/font-awesome.less',
-      'open-sans-fontface/open-sans.less'
-    ]
+    app: './src/index'
   },
   output: {
     path: path.resolve('dist'),
@@ -105,7 +94,17 @@ var config = {
 if (!isDevServer) {
   config.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+      minChunks: function (module) {
+        var userRequest = module.userRequest;
+        if (typeof userRequest !== 'string') {
+          return false;
+        }
+        return userRequest.indexOf('/node_modules/') >= 0;
+      }
+    }),
     new ExtractTextPlugin('[name].css')
   );
 } else {
