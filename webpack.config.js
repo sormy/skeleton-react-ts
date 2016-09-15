@@ -7,9 +7,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 
+var isWebpack = /^webpack(\.js)?$/.test(path.basename(process.argv[1]));
 var isDevServer = path.basename(process.argv[1]) === 'server.js';
-var isDev = isDevServer
-  || (path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-d');
+var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
 var isProd = !isDev;
 
 var lessLoader = isDevServer
