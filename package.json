@@ -26,7 +26,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "rimraf dist && webpack -d",
-    "build:prod": "rimraf dist && webpack -p",
+    "build:prod": "rimraf dist && webpack",
     "postinstall": "typings install && node semantic-fix.js",
     "start": "node server.js"
   },
