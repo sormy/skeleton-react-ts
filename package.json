@@ -21,8 +21,7 @@
     "typings": "^1.3.3",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2",
-    "webpack-source-map-fix-plugin": "^1.0.0"
+    "webpack-hot-middleware": "^2.12.2"
   },
   "scripts": {
     "clean": "rimraf dist",

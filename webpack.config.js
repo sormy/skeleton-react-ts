@@ -31,9 +31,11 @@ var config = {
     filename: '[name].js',
     devtoolModuleFilenameTemplate: function (info) {
       return info.resourcePath
-        .replace('webpack:///webpack:///', 'webpack:///')
-        .replace('webpack:///./', 'webpack:///')
-        .replace('webpack:///~/', 'webpack:///node_modules/');
+        .replace(/^(webpack:\/\/\/)*/, '')
+        .replace(/^(webpack)-/, '(webpack)/')
+        .replace(/^\.\//, '')
+        .replace(/^webpack\/bootstrap/, '(webpack)/bootstrap')
+        .replace(/^/, 'webpack:///');
     }
   },
   devtool: isDevServer ? 'eval' : 'source-map',
@@ -84,7 +86,6 @@ var config = {
       filename: 'index.html',
       template: 'src/index.html'
     }),
-    new SourceMapFixPlugin(),
     new BellOnBundlerErrorPlugin()
   ],
   tslint: {
