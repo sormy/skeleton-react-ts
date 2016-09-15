@@ -9,8 +9,9 @@ var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 var SourceMapFixPlugin = require('webpack-source-map-fix-plugin');
 
 var isDevServer = path.basename(process.argv[1]) === 'server.js';
-var isProd = path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-p';
-var isDev = isDevServer || !isProd;
+var isDev = isDevServer
+  || (path.basename(process.argv[1]) == 'webpack' && process.argv[2] == '-d');
+var isProd = !isDev;
 
 var lessLoader = isDevServer
   ? ['style', 'css?sourceMap', 'less?sourceMap'].join('!')
@@ -27,7 +28,13 @@ var config = {
   },
   output: {
     path: path.resolve('dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    devtoolModuleFilenameTemplate: function (info) {
+      return info.resourcePath
+        .replace('webpack:///webpack:///', 'webpack:///')
+        .replace('webpack:///./', 'webpack:///')
+        .replace('webpack:///~/', 'webpack:///node_modules/');
+    }
   },
   devtool: isDevServer ? 'eval' : 'source-map',
   resolve: {
@@ -92,17 +99,22 @@ var config = {
 };
 
 if (!isDevServer) {
+  if (isProd) {
+    config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.DedupePlugin()
+    );
+  }
+
   config.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.js',
       minChunks: function (module) {
-        var userRequest = module.userRequest;
-        if (typeof userRequest !== 'string') {
-          return false;
-        }
-        return userRequest.indexOf('/node_modules/') >= 0;
+        return typeof module.userRequest === 'string'
+          ? module.userRequest.indexOf('/node_modules/') !== -1
+          : false;
       }
     }),
     new ExtractTextPlugin('[name].css')
