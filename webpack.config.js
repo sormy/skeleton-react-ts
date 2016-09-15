@@ -113,7 +113,7 @@ if (!isDevServer) {
       filename: 'vendor.js',
       minChunks: function (module) {
         return typeof module.userRequest === 'string'
-          ? module.userRequest.indexOf('/node_modules/') !== -1
+          ? /[/\\]node_modules[/\\]/.test(module.userRequest)
           : false;
       }
     }),
