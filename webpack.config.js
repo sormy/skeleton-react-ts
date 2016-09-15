@@ -8,7 +8,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 
 var isWebpack = /^webpack(\.js)?$/.test(path.basename(process.argv[1]));
-var isDevServer = path.basename(process.argv[1]) === 'server.js';
+var isDevServer = path.basename(process.argv[1]) === 'serve-hot.js';
 var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
 var isProd = !isDev;
 
@@ -27,14 +27,15 @@ var config = {
   },
   output: {
     path: path.resolve('dist'),
-    filename: '[name].js',
+    filename: '[name].js?[hash]',
     devtoolModuleFilenameTemplate: function (info) {
-      return info.resourcePath
-        .replace(/^(webpack:\/\/\/)*/, '')
-        .replace(/^(webpack)-/, '(webpack)/')
+      var relPath = info.resourcePath
+        .replace(/^.*~/, '~')
+        .replace(/^(webpack:\/\/\/)+/, '')
         .replace(/^\.\//, '')
-        .replace(/^webpack\/bootstrap/, '(webpack)/bootstrap')
-        .replace(/^/, 'webpack:///');
+        .replace(/^\(webpack\)-/, '(webpack)/')
+        .replace(/^webpack\/bootstrap/, '(webpack)/bootstrap');
+      return 'webpack:///' + relPath + '?' + info.hash;
     }
   },
   devtool: isDevServer ? 'eval' : 'source-map',
@@ -110,14 +111,13 @@ if (!isDevServer) {
   config.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'vendor.js',
+      filename: 'vendor.js?[hash]',
       minChunks: function (module) {
-        return typeof module.userRequest === 'string'
-          ? /[/\\]node_modules[/\\]/.test(module.userRequest)
-          : false;
+        var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
+        return /^(node_modules|src\/(bootstrap|semantic))\//.test(relPath);
       }
     }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css?[hash]')
   );
 } else {
   config.entry = [
