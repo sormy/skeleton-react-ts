@@ -1,6 +1,6 @@
 import 'tslib';
 
-// import 'bootstrap/dist/js/bootstrap';
+// import './bootstrap/bootstrap';
 // import './bootstrap/bootstrap.less';
 
 import './semantic/semantic';
