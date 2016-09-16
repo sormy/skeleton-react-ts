@@ -14,7 +14,7 @@ var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
 var isProd = !isDev;
 
 var lessLoader = isDevServer
-  ? ['style', 'css?sourceMap', 'less?sourceMap'].join('!')
+  ? ['style?sourceMap', 'css?sourceMap', 'less?sourceMap'].join('!')
   : ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap']);
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
@@ -34,7 +34,7 @@ var config = {
     filename: '[name].js?[hash]',
     devtoolModuleFilenameTemplate: function (info) {
       var relPath = info.resourcePath
-        .replace(/^.*~/, '~')
+        .replace(/^.*(~|node_modules)/, '~')
         .replace(/^(webpack:\/\/\/)+/, '')
         .replace(/^\.\//, '')
         .replace(/^\(webpack\)-/, '(webpack)/')
@@ -86,8 +86,7 @@ var config = {
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery'
+      jQuery: 'jquery'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
