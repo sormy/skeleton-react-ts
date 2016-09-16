@@ -14,10 +14,10 @@ var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
 var isProd = !isDev;
 
 var lessLoader = isDevServer
-  ? ['style?sourceMap', 'css?sourceMap', 'less?sourceMap'].join('!')
-  : ExtractTextPlugin.extract(['css?sourceMap', 'less?sourceMap']);
+  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'less-loader?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'less-loader?sourceMap']);
 
-var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
+var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts-loader'] : ['ts-loader'];
 
 // autoprefixer configuration based on Twitter Bootstrap toolchain
 var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
@@ -53,7 +53,7 @@ var config = {
     preLoaders: [
       {
         test: /\.tsx?$/,
-        loader: 'tslint',
+        loader: 'tslint-loader',
         include: path.resolve('src')
       },
       {
@@ -74,7 +74,7 @@ var config = {
       },
       {
         test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
-        loader: 'file?name=[path]/[name].[ext]?[hash]'
+        loader: 'file-loader?name=[path]/[name].[ext]?[hash]'
       }
     ]
   },
