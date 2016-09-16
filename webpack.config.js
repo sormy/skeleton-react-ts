@@ -40,7 +40,10 @@ var config = {
   },
   devtool: isDevServer ? 'eval' : 'source-map',
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.tsx']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.tsx'],
+    alias: {
+      jquery: 'jquery/src/jquery'
+    }
   },
   module: {
     preLoaders: [
