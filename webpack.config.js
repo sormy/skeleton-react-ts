@@ -119,7 +119,6 @@ if (!isDevServer) {
   config.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'vendor.js?[hash]',
       minChunks: function (module) {
         var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
         return /^(node_modules|src\/(bootstrap|semantic))\//.test(relPath);
