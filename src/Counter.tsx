@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 
-export interface ICounterState {
+import moment from 'moment';
+
+interface ICounterState {
   counter: number;
 }
 
-export class Counter extends React.Component<void, ICounterState> {
+export default class Counter extends React.Component<void, ICounterState> {
   private interval: number;
 
   constructor(props: void) {
@@ -18,6 +20,10 @@ export class Counter extends React.Component<void, ICounterState> {
     });
   }
 
+  private getTime() {
+    return moment().format('MM/DD/YYYY HH:mm:ss');
+  }
+
   public componentDidMount() {
     this.interval = setInterval(this.tick.bind(this), 1000);
   }
@@ -28,7 +34,7 @@ export class Counter extends React.Component<void, ICounterState> {
 
   public render() {
     return (
-      <h2>Counter: {this.state.counter}</h2>
+      <h2>Counter: {this.state.counter}; Time: { this.getTime() }</h2>
    );
   }
 }

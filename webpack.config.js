@@ -6,6 +6,7 @@ var LessPluginAutoPrefix = require('less-plugin-autoprefix');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
+var FixDefaultImportPlugin = require('webpack-fix-default-import-plugin');
 
 var isWebpack = /^webpack(\.js)?$/.test(path.basename(process.argv[1]));
 var isDevServer = path.basename(process.argv[1]) === 'serve-hot.js';
@@ -18,8 +19,11 @@ var lessLoader = isDevServer
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts'] : ['ts'];
 
-// var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
-var autoprefixerBrowsers = ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4'];
+// autoprefixer configuration based on Twitter Bootstrap toolchain
+var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
+
+// autoprefixer configuration based on Semantic UI toolchain
+// var autoprefixerBrowsers = ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4'];
 
 var config = {
   entry: {
@@ -89,6 +93,7 @@ var config = {
       filename: 'index.html',
       template: 'src/index.html'
     }),
+    new FixDefaultImportPlugin(),
     new BellOnBundlerErrorPlugin()
   ],
   tslint: {

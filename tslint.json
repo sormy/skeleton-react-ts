@@ -6,9 +6,11 @@
   "rules": {
     "no-for-in-array": false,
     "restrict-plus-operands": false,
-    "no-unused-variable": [true, "react"],
+    "no-unused-variable": [true, {"ignore-pattern": "^(React|ReactDOM)$"}],
     "missing-jsdoc": false,
     "no-relative-imports": false,
-    "quotemark": false
+    "quotemark": false,
+    "import-name": false,
+    "no-default-export": false
   }
 }

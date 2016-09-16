@@ -60,7 +60,7 @@ TODO:
 
 ## CSS Frameworks ##
 
-- Twitter Bootstrap 3.3 (LESS)
+- Twitter Bootstrap 3.3 (LESS) (DEFAULT)
 - Semantic UI 2.2 (LESS)
 
 ### Twitter Bootstrap ###
