@@ -100,9 +100,9 @@ var config = {
       }
     }),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      Tether: 'tether'
+      $: 'jquery',                  // well known global alias for jquery
+      jQuery: 'jquery',             // bootstrap 3.x requires
+      'window.Tether': 'tether'     // bootstrap 4.x requires
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
