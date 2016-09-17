@@ -83,7 +83,7 @@ npm install bootstrap@4.0.0-alpha.4 tether --save
 To install Semantic UI you need to run:
 
 ```shell
-npm install semantic-ui-less --save
+npm install semantic-ui-less --save && node semantic-fix.js
 ```
 
 ### Bootstrap 3.x Customization ###

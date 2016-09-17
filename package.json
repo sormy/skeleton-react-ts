@@ -49,6 +49,7 @@
     "serve:dev": "rimraf dist && webpack -d && node serve-build.js",
     "serve:prod": "rimraf dist && webpack && node serve-build.js",
     "serve:hot": "node serve-hot.js",
-    "start": "node serve-hot.js"
+    "start": "node serve-hot.js",
+    "postinstall": "node semantic-fix.js"
   }
 }

@@ -135,7 +135,7 @@ if (!isDevServer) {
 
   var cssLibChunkPlugin =
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'bootstrap',  // or semantic
+      name: 'bootstrap',  // bootstrap or semantic
       chunks: ['vendor'],
       minChunks: function(module) {
         var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');

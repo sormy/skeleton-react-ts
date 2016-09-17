@@ -1,5 +1,9 @@
 var fs = require('fs');
 
+if (!fs.existsSync('node_modules/semantic-ui-less')) {
+  return;
+}
+
 // relocate default config
 fs.writeFileSync(
   'node_modules/semantic-ui-less/theme.config',
