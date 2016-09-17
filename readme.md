@@ -77,7 +77,7 @@ TODO:
 To install Bootstrap 4 and overwrite Bootstrap 3 you need to run:
 
 ```shell
-npm install bootstrap#4.0.0-alpha.4 tether --save
+npm install bootstrap@4.0.0-alpha.4 tether --save
 ```
 
 To install Semantic UI you need to run:
