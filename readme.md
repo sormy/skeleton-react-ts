@@ -41,10 +41,12 @@ Required plugin set:
 - TypeScript Runtime
 - WebPack
 - BrowserSync
-- LESS/SCSS/SASS
-- Bootstrap 3.x
+- LESS/SCSS/SASS/Stylus
+- Autoprefixer
+- Bootstrap 3.x (DEFAULT)
 - Bootstrap 4.x
 - Semantic UI 2.x
+- Foundation 6.x
 - css/js/react hot reload
 - debug builds with source maps
 - separated vendor/app js and css code
@@ -73,6 +75,7 @@ TODO:
 - Bootstrap 3.x (LESS) (DEFAULT)
 - Bootstrap 4.x (SCSS)
 - Semantic UI 2.x (LESS)
+- Foundation 6.x (Stylus)
 
 To install Bootstrap 4 and overwrite Bootstrap 3 you need to run:
 
@@ -80,10 +83,18 @@ To install Bootstrap 4 and overwrite Bootstrap 3 you need to run:
 npm install bootstrap@4.0.0-alpha.4 tether --save
 ```
 
+Please note, Bootstrap 4 requires peer dependency `tether`.
+
 To install Semantic UI you need to run:
 
 ```shell
-npm install semantic-ui-less --save && node semantic-fix.js
+npm install semantic-ui-less --save
+```
+
+To install Foundation you need to run:
+
+```shell
+npm install foundation --save
 ```
 
 ### Bootstrap 3.x Customization ###
@@ -131,3 +142,14 @@ As example you could refer to `node_modules/semantic-ui/src/_site` structure and
 documentation <http://learnsemantic.com/developing/customizing.html>.
 
 To activate library you need to import `semantic.js` and `semantic.less` in main file.
+
+### Foundation v6.x Customization ###
+
+- `src/foundation/foundation.js`
+- `src/foundation/foundation.styl`
+
+You could alter `foundation.js` and `foundation.styl` to disable not needed components.
+
+You could include overrides into `foundation.styl` to tune theme.
+
+To activate library you need to import `foundation.js` and `foundation.styl` in main file.

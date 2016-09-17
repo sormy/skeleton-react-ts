@@ -24,6 +24,10 @@ var sassLoader = isDevServer
   ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap', 'sass-loader?sourceMap'].join('!')
   : ExtractTextPlugin.extract(['css-loader?sourceMap', 'postcss-loader?sourceMap', 'sass-loader?sourceMap']);
 
+var stylusLoader = isDevServer
+  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap', 'stylus-loader?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'postcss-loader?sourceMap', 'stylus-loader?sourceMap']);
+
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts-loader'] : ['ts-loader'];
 
 // autoprefixer configuration based on Bootstrap 3.x defaults
@@ -34,6 +38,9 @@ var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.a
 
 // autoprefixer configuration based on Semantic UI 2.x defaults
 // var autoprefixerBrowsers = ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4'];
+
+// autoprefixer configuration for Foundation is unknown
+// var autoprefixerBrowsers = ['last 2 versions', '> 1%'];
 
 var config = {
   entry: {
@@ -76,6 +83,11 @@ var config = {
         include: path.resolve('src')
       },
       {
+        test: /\.js$/,
+        loader: 'imports?this=>window',
+        include: path.resolve('node_modules/foundation/js/foundation')
+      },
+      {
         test: /\.css$/,
         loader: cssLoader
       },
@@ -86,6 +98,10 @@ var config = {
       {
         test: /\.(scss|sass)$/,
         loader: sassLoader
+      },
+      {
+        test: /\.styl$/,
+        loader: stylusLoader
       },
       {
         test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
@@ -129,17 +145,17 @@ if (!isDevServer) {
       name: 'vendor',
       minChunks: function (module) {
         var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
-        return /^(node_modules|src\/(bootstrap4?|semantic))\//.test(relPath);
+        return /^(node_modules|src\/(bootstrap4?|semantic|foundation))\//.test(relPath);
       }
     });
 
   var cssLibChunkPlugin =
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'bootstrap',  // bootstrap or semantic
+      name: 'bootstrap',  // bootstrap | semantic | foundation
       chunks: ['vendor'],
       minChunks: function(module) {
         var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
-        return /^((src|node_modules)\/(bootstrap4?|semantic))\//.test(relPath);
+        return /^((src|node_modules)\/(bootstrap4?|semantic|foundation))\//.test(relPath);
       }
     });
 

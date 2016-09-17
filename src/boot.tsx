@@ -16,5 +16,9 @@ import './bootstrap/bootstrap.less';
 // import './semantic/semantic';
 // import './semantic/semantic.less';
 
+// Foundation 6.x
+// import './foundation/foundation';
+// import './foundation/foundation.styl';
+
 import 'font-awesome/less/font-awesome.less';
 import 'open-sans-fontface/open-sans.less';

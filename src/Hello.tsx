@@ -20,6 +20,11 @@ export default class Hello extends React.Component<IHelloProps, void> {
             This button should be red if Semantic UI overrides are working well
           </button>
         </div>
+        <div style={{ margin: '10px' }}>
+          <button className="button">
+            This button and all others should be red if Foundation overrides are working well
+          </button>
+        </div>
       </div>
     );
   }
