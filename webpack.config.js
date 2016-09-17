@@ -124,6 +124,27 @@ var config = {
 };
 
 if (!isDevServer) {
+  var vendorChunkPlugin =
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
+        return /^(node_modules|src\/(bootstrap4?|semantic))\//.test(relPath);
+      }
+    });
+
+  var cssLibChunkPlugin =
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'bootstrap',  // or semantic
+      chunks: ['vendor'],
+      minChunks: function(module) {
+        var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
+        return /^((src|node_modules)\/(bootstrap4?|semantic))\//.test(relPath);
+      }
+    });
+
+  var extractTextPlugin = new ExtractTextPlugin('[name].css?[hash]');
+
   if (isProd) {
     config.plugins.push(
       new webpack.optimize.UglifyJsPlugin({
@@ -131,20 +152,17 @@ if (!isDevServer) {
         output: { comments: false }
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.DedupePlugin()
+      new webpack.optimize.DedupePlugin(),
+      vendorChunkPlugin,
+      extractTextPlugin
+    );
+  } else {
+    config.plugins.push(
+      vendorChunkPlugin,
+      cssLibChunkPlugin,
+      extractTextPlugin
     );
   }
-
-  config.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: function (module) {
-        var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
-        return /^(node_modules|src\/(bootstrap4?|semantic))\//.test(relPath);
-      }
-    }),
-    new ExtractTextPlugin('[name].css?[hash]')
-  );
 } else {
   config.entry = [
     'react-hot-loader/patch',

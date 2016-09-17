@@ -15,6 +15,14 @@ npm install
 5. `npm run serve:prod`: build debug minified production version in `./dist` and serve it
 6. `npm run serve:hot` or `npm start`: serve debug development version with css/js hot reload
 
+Production build is slightly different from development.
+
+Production build has extra optimization to reduce build size and have only 2
+chunks: `app` and `vendor`.
+
+Development build has 3 chunks: `app`, `vendor` and css framework related chunk
+(`bootstrap`, `semantic` etc) to test application theme separately.
+
 ## IDE ##
 
 Recommended IDE is Visual Studio Code: <https://code.visualstudio.com/>
