@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "autoprefixer": "^6.4.1",
     "bell-on-bundler-error-plugin": "^1.0.8",
     "browser-sync": "^2.15.0",
     "css-loader": "^0.24.0",
@@ -8,9 +9,12 @@
     "html-webpack-plugin": "^2.22.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "less-plugin-autoprefix": "^1.5.1",
+    "node-sass": "^3.10.0",
+    "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-loader": "^0.13.0",
     "react-hot-loader": "^3.0.0-beta.3",
     "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
@@ -34,7 +38,6 @@
     "open-sans-fontface": "^1.4.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "semantic-ui-less": "^2.2.4",
     "tslib": "^1.0.0"
   },
   "scripts": {

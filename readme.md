@@ -33,8 +33,10 @@ Required plugin set:
 - TypeScript Runtime
 - WebPack
 - BrowserSync
-- LESS
+- LESS/SCSS
 - Bootstrap 3.x
+- Bootstrap 4.x
+- Semantic UI 2.x
 - css/js/react hot reload
 - debug builds with source maps
 - separated vendor/app js and css code
@@ -60,30 +62,56 @@ TODO:
 
 ## CSS Frameworks ##
 
-- Twitter Bootstrap 3.3 (LESS) (DEFAULT)
-- Semantic UI 2.2 (LESS)
+- Bootstrap 3.x (LESS) (DEFAULT)
+- Bootstrap 4.x (SCSS)
+- Semantic UI 2.x (LESS)
 
-### Twitter Bootstrap ###
+To install Bootstrap 4 and overwrite Bootstrap 3 you need to run:
+
+```shell
+npm install bootstrap#4.0.0-alpha.4 tether --save
+```
+
+To install Semantic UI you need to run:
+
+```shell
+npm install semantic-ui-less --save
+```
+
+### Bootstrap 3.x Customization ###
 
 Library configuration is located here:
 
 - `src/bootstrap/bootstrap.js`
 - `src/bootstrap/bootstrap.less`
 
-You could alter `bootstrap.js` and `bootstrap.css` to disable not needed components.
+You could alter `bootstrap.js` and `bootstrap.less` to disable not needed components.
 
 You could include overrides into `bootstrap.less` to tune theme.
 
-To activate library you need to import`bootstrap.js` and `bootstrap.css` in main file.
+To activate library you need to import `bootstrap.js` and `bootstrap.less` in main file.
 
-### Semantic UI ###
+### Bootstrap 4.x Customization ###
+
+Library configuration is located here:
+
+- `src/bootstrap/bootstrap.js`
+- `src/bootstrap/bootstrap.scss`
+
+You could alter `bootstrap.js` and `bootstrap.scss` to disable not needed components.
+
+You could include overrides into `bootstrap.scss` to tune theme.
+
+To activate library you need to import `bootstrap.js` and `bootstrap.scss` in main file.
+
+### Semantic UI 2.x Customization ###
 
 Library configuration is located here:
 
 - `src/semantic/semantic.js`
 - `src/semantic/semantic.less`
 
-You could alter `semantic.js` and `semantic.css` to disable not needed components.
+You could alter `semantic.js` and `semantic.less` to disable not needed components.
 
 Theme configuration is located here: `src/semantic/theme.config`
 
@@ -94,4 +122,4 @@ Please follow official guidelines to override styles.
 As example you could refer to `node_modules/semantic-ui/src/_site` structure and official
 documentation <http://learnsemantic.com/developing/customizing.html>.
 
-To activate library you need to import`semantic.js` and `semantic.css` in main file.
+To activate library you need to import `semantic.js` and `semantic.less` in main file.

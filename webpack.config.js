@@ -2,7 +2,6 @@ var path = require('path');
 
 var webpack = require('webpack');
 
-var LessPluginAutoPrefix = require('less-plugin-autoprefix');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
@@ -13,16 +12,27 @@ var isDevServer = path.basename(process.argv[1]) === 'serve-hot.js';
 var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
 var isProd = !isDev;
 
+var cssLoader = isDevServer
+  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'postcss-loader?sourceMap']);
+
 var lessLoader = isDevServer
-  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'less-loader?sourceMap'].join('!')
-  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'less-loader?sourceMap']);
+  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap', 'less-loader?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'postcss-loader?sourceMap', 'less-loader?sourceMap']);
+
+var sassLoader = isDevServer
+  ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap', 'sass-loader?sourceMap'].join('!')
+  : ExtractTextPlugin.extract(['css-loader?sourceMap', 'postcss-loader?sourceMap', 'sass-loader?sourceMap']);
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts-loader'] : ['ts-loader'];
 
-// autoprefixer configuration based on Twitter Bootstrap toolchain
+// autoprefixer configuration based on Twitter Bootstrap 3.x defaults
 var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
 
-// autoprefixer configuration based on Semantic UI toolchain
+// autoprefixer configuration based on Twitter Bootstrap 4.x defaults
+// var autoprefixerBrowsers = require('bootstrap/grunt/postcss').autoprefixer.browsers;
+
+// autoprefixer configuration based on Semantic UI 2.x defaults
 // var autoprefixerBrowsers = ['last 2 versions', '> 1%', 'opera 12.1', 'bb 10', 'android 4'];
 
 var config = {
@@ -45,9 +55,6 @@ var config = {
   devtool: isDevServer ? 'eval' : 'source-map',
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.ts', '.tsx'],
-    alias: {
-      jquery: 'jquery/src/jquery'
-    }
   },
   module: {
     preLoaders: [
@@ -69,8 +76,16 @@ var config = {
         include: path.resolve('src')
       },
       {
+        test: /\.css$/,
+        loader: cssLoader
+      },
+      {
         test: /\.less$/,
         loader: lessLoader
+      },
+      {
+        test: /\.(scss|sass)$/,
+        loader: sassLoader
       },
       {
         test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?.*)?$/,
@@ -86,7 +101,8 @@ var config = {
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
+      Tether: 'tether'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -99,17 +115,21 @@ var config = {
     emitErrors: true,
     failOnHint: true
   },
-  lessLoader: {
-    lessPlugins: [
-      new LessPluginAutoPrefix({ browsers: autoprefixerBrowsers })
-    ]
+  postcss: function () {
+    return [
+      require('postcss-flexbugs-fixes'),
+      require('autoprefixer')({ browsers: autoprefixerBrowsers })
+    ];
   }
 };
 
 if (!isDevServer) {
   if (isProd) {
     config.plugins.push(
-      new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false },
+        output: { comments: false }
+      }),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.DedupePlugin()
     );
@@ -120,7 +140,7 @@ if (!isDevServer) {
       name: 'vendor',
       minChunks: function (module) {
         var relPath = path.relative(__dirname, module.userRequest).replace(/\\/g, '/');
-        return /^(node_modules|src\/(bootstrap|semantic))\//.test(relPath);
+        return /^(node_modules|src\/(bootstrap4?|semantic))\//.test(relPath);
       }
     }),
     new ExtractTextPlugin('[name].css?[hash]')
