@@ -33,7 +33,7 @@ Required plugin set:
 - TypeScript Runtime
 - WebPack
 - BrowserSync
-- LESS/SCSS
+- LESS/SCSS/SASS
 - Bootstrap 3.x
 - Bootstrap 4.x
 - Semantic UI 2.x

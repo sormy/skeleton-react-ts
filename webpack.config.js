@@ -26,10 +26,10 @@ var sassLoader = isDevServer
 
 var tsLoader = isDevServer ? ['react-hot-loader/webpack', 'ts-loader'] : ['ts-loader'];
 
-// autoprefixer configuration based on Twitter Bootstrap 3.x defaults
+// autoprefixer configuration based on Bootstrap 3.x defaults
 var autoprefixerBrowsers = require('bootstrap/grunt/configBridge.json').config.autoprefixerBrowsers;
 
-// autoprefixer configuration based on Twitter Bootstrap 4.x defaults
+// autoprefixer configuration based on Bootstrap 4.x defaults
 // var autoprefixerBrowsers = require('bootstrap/grunt/postcss').autoprefixer.browsers;
 
 // autoprefixer configuration based on Semantic UI 2.x defaults
