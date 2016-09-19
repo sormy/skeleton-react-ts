@@ -53,6 +53,9 @@ Required plugin set:
 - automatic asset bundling
 - automatic source map fixer
 - tslint
+- less example
+- scss example
+- stylus example
 
 TODO:
 
@@ -65,9 +68,6 @@ TODO:
 - inline small assets into css
 - es-next decorators
 - es-next class properties
-- foundation framework
-- scss example
-- stylys example
 - postcss example
 
 ## CSS Frameworks ##
