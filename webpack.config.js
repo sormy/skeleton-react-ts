@@ -7,10 +7,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 var FixDefaultImportPlugin = require('webpack-fix-default-import-plugin');
 
-var isWebpack = /^webpack(\.js)?$/.test(path.basename(process.argv[1]));
-var isDevServer = path.basename(process.argv[1]) === 'serve-hot.js';
-var isDev = isDevServer || (isWebpack && process.argv[2] == '-d');
-var isProd = !isDev;
+var isDevServer = process.env.NODE_ENV === 'development-server';
+var isProd = process.env.NODE_ENV === 'production';
+var isDev = !isProd;
 
 var cssLoader = isDevServer
   ? ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap'].join('!')
@@ -116,9 +115,8 @@ var config = {
       }
     }),
     new webpack.ProvidePlugin({
-      $: 'jquery',                  // well known global alias for jquery
-      jQuery: 'jquery',             // bootstrap 3.x requires
-      'window.Tether': 'tether'     // bootstrap 4.x requires
+      jQuery: 'jquery',           // for Bootstrap 3.x / 4.x
+      'window.Tether': 'tether'   // for Bootstrap 4.x
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

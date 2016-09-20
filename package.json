@@ -3,6 +3,7 @@
     "autoprefixer": "^6.4.1",
     "bell-on-bundler-error-plugin": "^1.0.8",
     "browser-sync": "^2.15.0",
+    "cross-env": "^2.0.1",
     "css-loader": "^0.24.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
@@ -45,14 +46,14 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rimraf dist && webpack -d",
-    "build:dev": "rimraf dist && webpack -d",
-    "build:prod": "rimraf dist && webpack",
-    "serve": "rimraf dist && webpack -d && node serve-build.js",
-    "serve:dev": "rimraf dist && webpack -d && node serve-build.js",
-    "serve:prod": "rimraf dist && webpack && node serve-build.js",
-    "serve:hot": "node serve-hot.js",
-    "start": "node serve-hot.js",
+    "build": "rimraf dist && cross-env NODE_ENV=development webpack",
+    "build:dev": "rimraf dist && cross-env NODE_ENV=development webpack",
+    "build:prod": "rimraf dist && cross-env NODE_ENV=production webpack",
+    "serve": "rimraf dist && cross-env NODE_ENV=development webpack && node serve-build.js",
+    "serve:dev": "rimraf dist && cross-env NODE_ENV=development webpack && node serve-build.js",
+    "serve:prod": "rimraf dist && cross-env NODE_ENV=production webpack && node serve-build.js",
+    "serve:hot": "cross-env NODE_ENV=development-server node serve-hot.js",
+    "start": "cross-env NODE_ENV=development-server node serve-hot.js",
     "postinstall": "node semantic-fix.js"
   }
 }
