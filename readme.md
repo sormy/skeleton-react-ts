@@ -88,7 +88,7 @@ Please note, Bootstrap 4 requires peer dependency `tether`.
 To install Semantic UI you need to run:
 
 ```shell
-npm install semantic-ui-less --save
+npm install semantic-ui-less --save && node semantic-fix.js
 ```
 
 To install Foundation you need to run:
@@ -96,6 +96,8 @@ To install Foundation you need to run:
 ```shell
 npm install foundation --save
 ```
+
+Please don't forget to fix `src/boot.tsx` to import css framework which you need.
 
 ### Bootstrap 3.x Customization ###
 
