@@ -115,7 +115,9 @@ var config = {
       }
     }),
     new webpack.ProvidePlugin({
-      jQuery: 'jquery',           // for Bootstrap 3.x / 4.x
+      'jQuery': 'jquery',         // for Bootstrap 3.x / 4.x
+      'window.jQuery': 'jquery',  // for Bootstrap 3.x / 4.x
+      'Tether': 'tether',         // for Bootstrap 4.x
       'window.Tether': 'tether'   // for Bootstrap 4.x
     }),
     new HtmlWebpackPlugin({
